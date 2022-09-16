@@ -19,5 +19,3 @@ module.exports = (app) => {
       });
   });
 };
-
-// module.exports = router;

@@ -32,6 +32,7 @@ require("./src/db/db");
  * Users
  ********************/
 require("./src/routes/users/createUser")(app);
+require("./src/routes/users/readAllUsers")(app);
 
 // listen on port 5000
 app.listen(PORT, () => {
