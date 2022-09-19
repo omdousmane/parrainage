@@ -1,15 +1,15 @@
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
 // création des collections (table) shema
 module.exports = (mongoose) => {
   return mongoose.Schema({
     name: {
       type: String,
-      required: true,
+      required: { message: "name validation failed" },
     },
     email: {
       type: String,
-      required: true,
+      required: { message: "email validation failed email is requiered" },
     },
     img: {
       type: String,
@@ -37,9 +37,28 @@ module.exports = (mongoose) => {
       type: Number,
       default: null,
     },
-
     quote: {
       type: String,
+      default: "",
+    },
+    active: {
+      type: Boolean,
+      default: false,
+    },
+    validationKeys: {
+      type: String,
+      default: "",
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+    },
+    validatedAt: {
+      type: Date,
+      default: Date.now(),
+    },
+    updateAt: {
+      type: Date,
       default: "",
     },
   });

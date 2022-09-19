@@ -25,12 +25,16 @@ module.exports = (app) => {
           res.status(200).json({ message, data: user });
         });
     }
-
     // find all users
     Users.find()
       .then((user) => {
-        const message = "La liste des utilisateurs a bien été récupérée.";
-        res.json({ message, data: user });
+        if (user.length !== 0) {
+          const message = "La liste des utilisateurs a bien été récupérée.";
+          return res.status(200).json({ message, data: user });
+        } else {
+          const message = "Aucun utilisateur dans la base de donnée.";
+          return res.status(404).json({ message });
+        }
       })
       .catch((error) => {
         const message =

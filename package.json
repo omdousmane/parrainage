@@ -9,14 +9,19 @@
   "author": "PMD",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",
+    "ejs": "^3.1.8",
     "express": "^4.18.1",
+    "fs": "^0.0.1-security",
     "mongodb": "^4.9.1",
     "mongoose": "^6.6.0",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.19"
+    "nodemailer": "^6.7.8",
+    "nodemon": "^2.0.19",
+    "randomstring": "^1.2.2"
   }
 }

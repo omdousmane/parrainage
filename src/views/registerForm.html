@@ -1,70 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../asset/style.css">
+  <script defer src="../asset/js/script.js"></script>
   <title>Formulaire</title>
 </head>
+
 <body>
 
-<h2>Formulaire d'inscription</h2>
-<p>Resize the browser window to see the effect. When the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other.</p>
+  <h1>Formulaire d'inscription</h1>
 
-<div class="container">
-  <form action="/action_page.php">
-  <div class="row">
-    <div class="col-25">
-      <label for="lastname">Nom :</label>
-    </div>
-    <div class="col-75">
-      <input type="text" id="lastname" name="lastname" placeholder="Votre nom...">
-    </div>
+  <div class="container">
+    <form>
+      <div class=" row">
+        <div class="col-25">
+          <label for="lastname">Nom :</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="lastname" name="lastname" placeholder="Votre nom...">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="firstname">Prénom :</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="firstname" name="firstname" placeholder="Votre prénom...">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="mail">E-mail :</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="email" name="email" placeholder="Adresse e-mail...">
+        </div>
+      </div>
+      <br>
+      <hr>
+      <div class="row">
+        <div class="col-25">
+          <label for="formation">Formation pour l'année à venir :</label>
+        </div>
+        <div class="col-75">
+          <select id="formation" name="formation">
+            <option value="grande_ecole">Programme grande école</option>
+            <option value="bachelor_webmarketing">Bachelor webmarketing & UX</option>
+            <option value="bachelor_dev_web">Bachelor développeur web</option>
+            <option value="bachelor_data">Bachelor data & IA</option>
+            <option value="bachelor_3d">Bachelor infographie 3D</option>
+            <option value="pmd">PMD</option>
+            <option value="mastere_product">mastere 1 product management</option>
+            <option value="mastere_marketing">mastere 1 marketing</option>
+            <option value="mastere_cto">mastere 1 CTO & tech lead</option>
+            <option value="mastere_data">mastere 1 data & IA</option>
+          </select>
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <input type="submit" value="Submit">
+      </div>
+    </form>
   </div>
-  <div class="row">
-    <div class="col-25">
-      <label for="firstname">Prénom :</label>
-    </div>
-    <div class="col-75">
-      <input type="text" id="firstname" name="firstname" placeholder="Votre prénom...">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-25">
-      <label for="mail">E-mail :</label>
-    </div>
-    <div class="col-75">
-      <input type="text" id="mail" name="mail" placeholder="Adresse e-mail...">
-    </div>
-  </div>
-  <br><hr>
-  <div class="row">
-    <div class="col-25">
-      <label for="formation">Formation pour l'année à venir :</label>
-    </div>
-    <div class="col-75">
-      <select id="formation" name="formation">
-        <option value="grande_ecole">Programme grande école</option>
-        <option value="bachelor_webmarketing">Bachelor webmarketing & UX</option>
-        <option value="bachelor_dev_web">Bachelor développeur web</option>
-        <option value="bachelor_data">Bachelor data & IA</option>
-        <option value="bachelor_3d">Bachelor infographie 3D</option>
-        <option value="pmd">PMD</option>
-        <option value="mastere_product">mastere 1 product management</option>
-        <option value="mastere_marketing">mastere 1 marketing</option>
-        <option value="mastere_cto">mastere 1 CTO & tech lead</option>
-        <option value="mastere_data">mastere 1 data & IA</option>
-      </select>
-    </div>
-  </div>
-  
-  <br>
-  <div class="row">
-    <input type="submit" value="Submit">
-  </div>
-  </form>
-</div>
 
 </body>
+
 </html>
