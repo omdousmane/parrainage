@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 var tree_util = require("tree-util");
-const randomString = require("randomString");
+const randomString = require("randomstring");
 
 const app = express();
 
