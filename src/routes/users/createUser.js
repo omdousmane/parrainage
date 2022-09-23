@@ -42,7 +42,7 @@ module.exports = async (app) => {
       .catch((err) => {
         const message = `L'utilisateur n'a pas été créé !`;
         let messages = err.message.split(":")[2];
-        res.status(500).json({ message, messages });
+        res.status(500).json({ message, messages, err });
       });
   });
 };
