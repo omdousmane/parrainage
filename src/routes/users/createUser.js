@@ -18,31 +18,19 @@ module.exports = async (app) => {
     if (verifEmail !== true) {
       const message = `Email non conforme`;
       return res.status(401).json({ message });
+    } else {
+      const users = new Users(req.body);
+      users
+        .save()
+        .then((user) => {
+          const message = `L'utilisateur a été créé avec succès !`;
+          res.status(201).json({ message, data: user, mail: body });
+        })
+        .catch((err) => {
+          const message = `L'utilisateur n'a pas été créé !`;
+          let messages = err.message.split(":")[2];
+          res.status(500).json({ message, messages, err });
+        });
     }
-    const users = new Users(req.body);
-    // const data = {
-    //   from: "bde-noreply@hetic.net",
-    //   to: "bde-noreply@hetic.net",
-    //   subject: "Confirm your email",
-    //   text: "Confirm your email address",
-    // };
-    users
-      .save()
-      .then((user) => {
-        // mg.messages().send(data, function (error, body) {
-        //   if (error) {
-        //     const message = `Le mail n'a pas été créé !`;
-        //     let messages = err.message.split(":")[2];
-        //     res.status(500).json({ message, messages });
-        //   }
-        const message = `L'utilisateur a été créé avec succès !`;
-        res.status(201).json({ message, data: user, mail: body });
-        // });
-      })
-      .catch((err) => {
-        const message = `L'utilisateur n'a pas été créé !`;
-        let messages = err.message.split(":")[2];
-        res.status(500).json({ message, messages, err });
-      });
   });
 };
