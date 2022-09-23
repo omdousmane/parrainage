@@ -1,15 +1,22 @@
 const mongoose = require("mongoose");
-
 // création des collections (table) shema
+const randomString = require("randomString");
+const stringValidation = randomString.generate();
+
 module.exports = (mongoose) => {
   return mongoose.Schema({
     name: {
       type: String,
-      required: { message: "name validation failed" },
+      // required: [true, "name validation failed"],
+      minlength: [2, "Name must be at least 2 characters longer"],
+      maxlength: [64, "Name must be at most 64 characters shorter"],
     },
     email: {
       type: String,
-      required: { message: "email validation failed email is requiered" },
+      lowercase: true,
+      unique: true,
+      // required: [true, "email validation failed email is requiered"],
+      maxlength: [128, "Email must be at most 128 characters"],
     },
     img: {
       type: String,
@@ -24,7 +31,12 @@ module.exports = (mongoose) => {
       type: String,
       default: "",
     },
-
+    parentId: [
+      // {
+      //   type: mongoose.Types.ObjectId,
+      //   ref: "users",
+      // },
+    ],
     studyLevel: {
       type: Number,
       default: 1,
@@ -47,7 +59,7 @@ module.exports = (mongoose) => {
     },
     validationKeys: {
       type: String,
-      default: "",
+      default: stringValidation,
     },
     createdAt: {
       type: Date,
@@ -63,7 +75,3 @@ module.exports = (mongoose) => {
     },
   });
 };
-// to creat one post
-
-// creation du model
-// module.exports.Users = mongoose.model("User", usersShema);

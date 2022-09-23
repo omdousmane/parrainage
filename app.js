@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
+var tree_util = require("tree-util");
+
 const app = express();
 
 // Création du port
@@ -10,7 +12,7 @@ const PORT = process.env.PORT || 7000;
 require("dotenv").config();
 
 // Déclaration des middleware
-app.use(morgan("tiny")).use(express.json()).use(cors());
+app.use(morgan("tiny")).use(express.json()).use(cors()).use(express.json());
 app.options("*", cors());
 
 // connection a la de donnée mongodb
@@ -24,6 +26,11 @@ require("./src/routes/users/createUser")(app);
 require("./src/routes/users/readAllUsers")(app);
 require("./src/routes/users/deleteUser")(app);
 require("./src/routes/mails/validateMail")(app);
+require("./src/routes/godfathergodson/createGodson")(app);
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
 
 // listen on port
 app.listen(PORT, () => {

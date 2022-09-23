@@ -4,7 +4,7 @@ require("dotenv").config();
 const api = process.env.API_URL;
 
 module.exports = (app) => {
-  app.get(`${api}/updateUser`, async (req, res) => {
+  app.update(`${api}/updateUser`, async (req, res) => {
     const id = req.body.id;
     await Users.findByIdAndUpdate(
       id,

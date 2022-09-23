@@ -1,55 +1,48 @@
 const { json } = require("body-parser");
 const { Users } = require("../../db/mongoose");
+// const sgMail = require("@sendgrid/mail");
+const validator = require("validator");
+const mailgun = require("mailgun-js");
 require("dotenv/config");
-const randomString = require("randomString");
-const sgMail = require("@sendgrid/mail");
-const { stringValidation } = require("mongoose");
+const domain = "sandbox8815a254d5e942118421fefd0d256456.mailgun.org";
+const mg = mailgun({
+  apiKey: process.env.MAILGUN_API_KEY,
+  domain: domain,
+});
+
 const api = process.env.API_URL;
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = async (app) => {
   app.post(`${api}/createUser`, async (req, res) => {
-    const stringValidation = await randomString.generate();
-    const users = new Users({
-      name: req.body.name,
-      email: req.body.email,
-      training: req.body.training,
-      validationKeys: stringValidation,
-      active: false,
-    });
+    const verifEmail = validator.isEmail(req.body.email);
+    if (verifEmail !== true) {
+      const message = `Email non conforme`;
+      return res.status(401).json({ message });
+    }
+    const users = new Users(req.body);
+    const data = {
+      from: "bde-noreply@hetic.net",
+      to: "bde-noreply@hetic.net",
+      subject: "Confirm your email",
+      text: "Confirm your email address",
+    };
     users
       .save()
       .then(async (user) => {
-        let html = `<p>Veillez cliquez sur<a href="http://${req.headers.host}/${api}/validateMail/?token=${stringValidation}"> le liens suivant
-                    </a>pour valider votre compte.  </p>
-                    <p>Vous avez 30 jours pour valider votre compte </p>
-                    <p>http://${req.headers.host}${api}/validateMail?token=${stringValidation} </p>`;
-        const msg = {
-          to: req.body.email, // Change to your recipient
-          from: "omdousmane@gmail.com", // Change to your verified sender
-          subject: "Confirm your email",
-          text: "Confirm your email address",
-          html: html,
-        };
-        await sgMail
-          .send(msg)
-          .then(() => {
-            const message = `Un mail de confirmation a été envoyé à ${req.body.email}`;
-            res.status(202).json({ message, dataUser: user });
-          })
-          .catch((error) => {
-            const message = `Erreur d'envoie de mail`;
-            res.status(500).json({ message, error });
-          });
+        mg.messages().send(data, function (error, body) {
+          if (error) {
+            const message = `Le mail n'a pas été créé !`;
+            let messages = err.message.split(":")[2];
+            res.status(500).json({ message, messages });
+          }
+          const message = `L'utilisateur a pas été créé avec succès !`;
+          res.status(201).json({ message, data: user, mail: body });
+        });
       })
-
       .catch((err) => {
-        // if (err  stringValidation) {
-        //   return res.status(400).json({ message: error.message, data: error });
-        // }
-        const message = `L'utilisateur  n'a pas été créé !`;
+        const message = `L'utilisateur n'a pas été créé !`;
         let messages = err.message.split(":")[2];
-        res.status(500).json({ message, error: messages });
+        res.status(500).json({ message, messages });
       });
   });
 };
