@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 // création des collections (table) shema
-const randomString = require("randomString");
+const randomString = require("randomstring");
 const stringValidation = randomString.generate();
 
 module.exports = (mongoose) => {
