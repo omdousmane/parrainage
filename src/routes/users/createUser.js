@@ -15,7 +15,7 @@ const api = process.env.API_URL;
 module.exports = async (app) => {
   app.post(`${api}/createUser`, async (req, res) => {
     const verifEmail = validator.isEmail(req.body.email);
-    if (verifEmail !== true) {
+    if (!verifEmail) {
       const message = `Email non conforme`;
       return res.status(401).json({ message });
     } else {
@@ -28,8 +28,9 @@ module.exports = async (app) => {
         })
         .catch((err) => {
           const message = `L'utilisateur n'a pas été créé !`;
-          let messages = err.message.split(":")[2];
-          res.status(500).json({ message, messages, err });
+          // const msg = err.message.split(":")[2];
+          const messages = message.concat(" ", msg);
+          res.status(500).json({ messages, erreur: err });
         });
     }
   });

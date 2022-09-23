@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 let url = "";
 const dbName = process.env.DATABASE_NAME;
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "development") {
   url = process.env.DEVELOPPEMENT_CONNECTION_STRING;
   mongoose
     .connect(process.env.MONGODB_URI || `${url + "/" + dbName}`, {
@@ -18,15 +18,15 @@ if (process.env.NODE_ENV === "production") {
       console.log("echec de la connexion à la base de données" + error);
     });
 } else {
-  url = process.env.DEVELOPPEMENT_CONNECTION_STRING;
+  url = process.env.PRODUCTION_CONNECTION_STRING;
   mongoose
-    .connect(`${url + "/" + dbName}`, {
+    .connect(process.env.MONGODB_URI || `${url}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       journal: true,
     })
     .then(() => {
-      console.log(`La connexion à la base de données reussie...`);
+      console.log(`La connexion à la base de données reussie... ${url}`);
     })
     .catch((error) => {
       console.log("echec de la connexion à la base de données" + error);
