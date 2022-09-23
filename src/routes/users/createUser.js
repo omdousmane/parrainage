@@ -35,7 +35,7 @@ module.exports = async (app) => {
             let messages = err.message.split(":")[2];
             res.status(500).json({ message, messages });
           }
-          const message = `L'utilisateur a pas été créé avec succès !`;
+          const message = `L'utilisateur n'a pas été créé avec succès !`;
           res.status(201).json({ message, data: user, mail: body });
         });
       })
