@@ -14,24 +14,24 @@ const api = process.env.API_URL;
 
 module.exports = async (app) => {
   app.post(`${api}/createUser`, async (req, res) => {
-    const verifEmail = validator.isEmail(req.body.email);
-    if (!verifEmail) {
-      const message = `Email non conforme`;
-      return res.status(401).json({ message });
-    } else {
-      const users = new Users(req.body);
-      users
-        .save()
-        .then((user) => {
-          const message = `L'utilisateur a été créé avec succès !`;
-          res.status(201).json({ message, data: user, mail: body });
-        })
-        .catch((err) => {
-          const message = `L'utilisateur n'a pas été créé !`;
-          // const msg = err.message.split(":")[2];
-          // const messages = message.concat(" ", msg);
-          res.status(500).json({ message, erreur: err });
-        });
-    }
+    // const verifEmail = validator.isEmail(req.body.email);
+    // if (!verifEmail) {
+    //   const message = `Email non conforme`;
+    //   return res.status(401).json({ message });
+    // } else {
+    const users = new Users(req.body);
+    users
+      .save()
+      .then((user) => {
+        const message = `L'utilisateur a été créé avec succès !`;
+        res.status(201).json({ message, data: user });
+      })
+      .catch((err) => {
+        const message = `L'utilisateur n'a pas été créé !`;
+        // const msg = err.message.split(":")[2];
+        // const messages = message.concat(" ", msg);
+        res.status(500).json({ message: message, erreur: err });
+      });
+    // }
   });
 };
