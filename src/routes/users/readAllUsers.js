@@ -1,4 +1,5 @@
 const { Users } = require("../../db/mongoose");
+const validator = require("validator");
 
 require("dotenv/config");
 const api = process.env.API_URL;
@@ -21,10 +22,32 @@ module.exports = (app) => {
             const message = `Error survenue lors de la recuperation`;
             return res.status(500).json({ message, data: err });
           }
-          const message = `Il y a ${user.length} useregorie(s) qui correspond au terme de recherche ${name}`;
+          const message = `Il y a ${user.length} user(s) qui correspond au terme de recherche ${name}`;
           res.status(200).json({ message, data: user });
         });
     }
+
+    // find User by email
+    if (req.query.email) {
+      const email = req.query.email;
+
+      const verifEmail = validator.isEmail(req.query.email);
+      if (!verifEmail) {
+        const message = `Email non conforme`;
+        return res.status(401).json({ message });
+      }
+      return Users.find({ email: { $regex: email, $options: "i" } }).exec(
+        (err, user) => {
+          if (err) {
+            const message = `Une erreur est survenue lors de la recuperation`;
+            return res.status(500).json({ message, data: err });
+          }
+          const message = `Un utilisateur trouvé pour l'adresse ${email}`;
+          res.status(200).json({ message, data: user });
+        }
+      );
+    }
+
     // find all users
     Users.find()
       .then((user) => {

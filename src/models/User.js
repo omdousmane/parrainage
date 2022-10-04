@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 // création des collections (table) shema
 const randomString = require("randomstring");
 const stringValidation = randomString.generate();
