@@ -73,9 +73,5 @@ module.exports = (mongoose) => {
       type: Date,
       default: "",
     },
-    writeConcern: {
-      j: true,
-      wtimeout: 1000,
-    },
   });
 };
