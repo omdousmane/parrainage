@@ -1,10 +1,9 @@
 require("dotenv/config");
 const mongoose = require("mongoose");
-let url = "";
 const dbName = process.env.DATABASE_NAME;
 
 if (process.env.NODE_ENV === "development") {
-  url = process.env.DEVELOPPEMENT_CONNECTION_STRING;
+  let url = process.env.DEVELOPPEMENT_CONNECTION_STRING;
   mongoose
     .connect(process.env.MONGODB_URI || `${url + "/" + dbName}`, {
       useNewUrlParser: true,
@@ -18,9 +17,9 @@ if (process.env.NODE_ENV === "development") {
       console.log("echec de la connexion à la base de données" + error);
     });
 } else {
-  url = process.env.PRODUCTION_CONNECTION_STRING;
+  let url = process.env.PRODUCTION_CONNECTION_STRING;
   mongoose
-    .connect(process.env.MONGODB_URI || `${url}`, {
+    .connect(process.env.MONGODB_URI || `${url + "/" + dbName}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       journal: true,
