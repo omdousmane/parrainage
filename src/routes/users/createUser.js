@@ -19,13 +19,7 @@ module.exports = async (app) => {
     //   const message = `Email non conforme`;
     //   return res.status(401).json({ message });
     // } else {
-    const users = new Users(req.body, {
-      writeConcern: {
-        w: "majority",
-        j: true,
-        wtimeout: 1000,
-      },
-    });
+    const users = new Users(req.body);
     users
       .save()
       .then((user) => {
