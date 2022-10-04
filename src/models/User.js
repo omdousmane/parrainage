@@ -74,7 +74,6 @@ module.exports = (mongoose) => {
       default: "",
     },
     writeConcern: {
-      w: "majority",
       j: true,
       wtimeout: 1000,
     },
