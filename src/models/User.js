@@ -73,5 +73,10 @@ module.exports = (mongoose) => {
       type: Date,
       default: "",
     },
+    writeConcern: {
+      w: "majority",
+      j: true,
+      wtimeout: 1000,
+    },
   });
 };
