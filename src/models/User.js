@@ -20,6 +20,10 @@ module.exports = (mongoose) => {
         // required: [true, "email validation failed email is requiered"],
         maxlength: [128, "Email must be at most 128 characters"],
       },
+      password: {
+        type: String,
+      },
+
       img: {
         type: String,
         default: "",
@@ -33,12 +37,7 @@ module.exports = (mongoose) => {
         type: String,
         default: "",
       },
-      parentId: [
-        // {
-        //   type: mongoose.Types.ObjectId,
-        //   ref: "users",
-        // },
-      ],
+
       studyLevel: {
         type: Number,
         default: 1,

@@ -24,6 +24,7 @@ require("./src/db/db");
  * Users
  ********************/
 require("./src/routes/users/createUser")(app);
+require("./src/routes/users/login")(app);
 require("./src/routes/users/readAllUsers")(app);
 require("./src/routes/users/deleteUser")(app);
 require("./src/routes/mails/validateMail")(app);

@@ -1,5 +1,6 @@
 const { json } = require("body-parser");
 const { Users } = require("../../db/mongoose");
+const bcrypt = require("bcrypt");
 // const sgMail = require("@sendgrid/mail");
 const validator = require("validator");
 // const mailgun = require("mailgun-js");
@@ -14,12 +15,13 @@ const api = process.env.API_URL;
 
 module.exports = async (app) => {
   app.post(`${api}/createUser`, async (req, res) => {
-    // const verifEmail = validator.isEmail(req.body.email);
-    // if (!verifEmail) {
-    //   const message = `Email non conforme`;
-    //   return res.status(401).json({ message });
-    // } else {
-    const users = new Users(req.body);
+    let dataUser = {
+      name: req.body.name,
+      email: req.body.email,
+      training: req.body.training,
+      password: bcrypt.hashSync(req.body.password, 10),
+    };
+    const users = new Users(dataUser);
     users
       .save()
       .then((user) => {
@@ -28,8 +30,6 @@ module.exports = async (app) => {
       })
       .catch((err) => {
         const message = `L'utilisateur n'a pas été créé !`;
-        // const msg = err.message.split(":")[2];
-        // const messages = message.concat(" ", msg);
         res.status(500).json({ message: message, erreur: err });
       });
     // }

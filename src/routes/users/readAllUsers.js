@@ -1,11 +1,11 @@
 const { Users } = require("../../db/mongoose");
 const validator = require("validator");
-
+const auth = require("../../auth/auth");
 require("dotenv/config");
 const api = process.env.API_URL;
 
 module.exports = (app) => {
-  app.get(`${api}/readAllUsers`, (req, res) => {
+  app.get(`${api}/readAllUsers`, auth, (req, res) => {
     // find User by name
     if (req.query.name) {
       const name = req.query.name;
